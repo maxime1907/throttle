@@ -1,0 +1,8 @@
+FROM nginx
+
+# RUN apk add busybox-initscripts
+# COPY crontab /etc/cron.d/cjob
+# RUN chmod 0644 /etc/cron.d/cjob
+# CMD cron -f
+
+COPY --chown=nginx --from=composer /app /var/www/html

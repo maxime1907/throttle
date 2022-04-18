@@ -1,0 +1,27 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Cache Composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: /tmp/composer-cache
+        key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+    - uses: php-actions/composer@v6
+      with:
+        dev: no
+        php_version: "7.4"
+        args: --profile --ignore-platform-reqs --optimize-autoloader --no-interaction
+        path: /tmp/build
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: throttle_build
+        path: /tmp/build

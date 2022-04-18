@@ -1,0 +1,33 @@
+version: '3.7'
+
+networks:
+  throttle:
+    name: throttle
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./throttle_app/web:/var/www/html/web
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+    networks:
+      - throttle
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile.php
+    container_name: php
+    volumes:
+      - ./throttle_app:/var/www/html
+    ports:
+      - "9000:9000"
+    networks:
+      - throttle
