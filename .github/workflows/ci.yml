@@ -21,7 +21,11 @@ jobs:
         args: --profile --ignore-platform-reqs --optimize-autoloader --no-interaction
         working_dir: /tmp/build
 
-    - uses: actions/upload-artifact@v3
+    - name: Archive build
+      run: mkdir /tmp/github-actions/ && tar -cvf /tmp/github-actions/build.tar ./
+
+    - name: Upload build archive for test runners
+      uses: actions/upload-artifact@v2
       with:
-        name: throttle_build
-        path: /tmp/build
+        name: build-artifact
+        path: /tmp/github-actions
