@@ -20,7 +20,7 @@
                 "source": {
                     "url": "https://github.com/phacility/libphutil.git",
                     "type": "git",
-                    "reference": "origin/stable"
+                    "reference": "origin/legacy-2019"
                 }
             }
         }

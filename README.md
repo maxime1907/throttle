@@ -28,6 +28,17 @@
         </Location>
     </VirtualHost>
 
+## Nginx configuration
+```
+server_name throttle.example.com;
+
+root /path/to/throttle/web;
+
+if (!-e $request_filename){
+    rewrite ^(.*)$ /index.php break;
+}
+```
+
 ## Cron
     * * * * * root /var/www/throttle/app/console.php crash:clean > /dev/null; /var/www/throttle/app/console.php crash:process -l 250 -u > /dev/null
     0 * * * * root /var/www/throttle/app/console.php user:update > /dev/null
